@@ -39,6 +39,6 @@ build/
 *.txt
 
 ### skills ###
-skills/*.md
+skills
 tasks.md
 HELP.md
