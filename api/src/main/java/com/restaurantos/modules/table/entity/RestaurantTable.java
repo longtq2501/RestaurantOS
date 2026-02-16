@@ -31,7 +31,7 @@ import lombok.ToString;
                                 "table_number" })
 }, indexes = {
                 @Index(name = "idx_table_restaurant", columnList = "restaurant_id"),
-                @Index(name = "idx_table_qr_token", columnList = "qrCodeToken")
+                @Index(name = "idx_table_qr_token", columnList = "qr_code_token")
 })
 @Getter
 @Setter
