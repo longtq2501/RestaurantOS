@@ -16,6 +16,7 @@ import com.restaurantos.modules.restaurant.service.FileStorageService;
 import com.restaurantos.shared.exception.InvalidInputException;
 
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 
 /**
  * Local implementation of {@link FileStorageService}.
@@ -44,18 +45,22 @@ public class LocalFileStorageServiceImpl implements FileStorageService {
 
     @Override
     public String uploadFile(MultipartFile file, String folder) {
+        return uploadInternal(file, folder)[0];
+    }
+
+    @Override
+    public String[] uploadFileWithThumbnail(MultipartFile file, String folder, int width, int height) {
+        return uploadInternalWithThumbnail(file, folder, width, height);
+    }
+
+    private String[] uploadInternal(MultipartFile file, String folder) {
         String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (originalFileName.contains("..")) {
                 throw new InvalidInputException("Invalid file name: " + originalFileName);
             }
 
-            String extension = "";
-            int i = originalFileName.lastIndexOf('.');
-            if (i > 0) {
-                extension = originalFileName.substring(i);
-            }
-
+            String extension = getExtension(originalFileName);
             String fileName = UUID.randomUUID().toString() + extension;
             Path targetFolder = this.storageLocation.resolve(folder);
             Files.createDirectories(targetFolder);
@@ -63,11 +68,51 @@ public class LocalFileStorageServiceImpl implements FileStorageService {
             Path targetLocation = targetFolder.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return baseUrl + "/" + folder + "/" + fileName;
+            return new String[] { baseUrl + "/" + folder + "/" + fileName };
         } catch (IOException e) {
             log.error("Could not store file {}", originalFileName, e);
             throw new RuntimeException("Could not store file " + originalFileName, e);
         }
+    }
+
+    private String[] uploadInternalWithThumbnail(MultipartFile file, String folder, int width, int height) {
+        String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            if (originalFileName.contains("..")) {
+                throw new InvalidInputException("Invalid file name: " + originalFileName);
+            }
+
+            String extension = getExtension(originalFileName);
+            String baseName = UUID.randomUUID().toString();
+            String fileName = baseName + extension;
+            String thumbName = baseName + "_thumb" + extension;
+
+            Path targetFolder = this.storageLocation.resolve(folder);
+            Files.createDirectories(targetFolder);
+
+            // Save original
+            Path targetLocation = targetFolder.resolve(fileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Save thumbnail
+            Path thumbLocation = targetFolder.resolve(thumbName);
+            Thumbnails.of(targetLocation.toFile())
+                    .size(width, height)
+                    .toFile(thumbLocation.toFile());
+
+            return new String[] {
+                    baseUrl + "/" + folder + "/" + fileName,
+                    baseUrl + "/" + folder + "/" + thumbName
+            };
+        } catch (IOException e) {
+            log.error("Could not store file {}", originalFileName, e);
+            throw new RuntimeException("Could not store file " + originalFileName, e);
+        }
+    }
+
+    private String getExtension(String fileName) {
+        int i = fileName.lastIndexOf('.');
+        return i > 0 ? fileName.substring(i) : "";
     }
 
     @Override
