@@ -13,6 +13,7 @@ import com.restaurantos.modules.order.entity.OrderItemStatus;
 import com.restaurantos.modules.order.repository.OrderItemRepository;
 import com.restaurantos.modules.order.service.OrderItemService;
 import com.restaurantos.shared.exception.ResourceNotFoundException;
+import com.restaurantos.shared.websocket.WebSocketService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderItemServiceImpl implements OrderItemService {
 
     private final OrderItemRepository orderItemRepository;
+    private final WebSocketService webSocketService;
 
     @Override
     @Transactional
@@ -43,7 +45,16 @@ public class OrderItemServiceImpl implements OrderItemService {
             item.setServedAt(LocalDateTime.now());
         }
 
-        return mapToResponse(orderItemRepository.save(item));
+        OrderItem savedItem = orderItemRepository.save(item);
+        OrderItemResponse response = mapToResponse(savedItem);
+
+        // Broadcast to order, kitchen and dashboard
+        UUID restaurantId = item.getOrder().getRestaurant().getId();
+        webSocketService.broadcastToOrder(item.getOrder().getId(), response);
+        webSocketService.broadcastToKitchen(restaurantId, response);
+        webSocketService.broadcastToDashboard(restaurantId, response);
+
+        return response;
     }
 
     private OrderItemResponse mapToResponse(OrderItem item) {

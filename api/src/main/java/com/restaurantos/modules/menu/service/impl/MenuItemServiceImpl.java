@@ -19,6 +19,7 @@ import com.restaurantos.modules.restaurant.entity.Restaurant;
 import com.restaurantos.modules.restaurant.repository.RestaurantRepository;
 import com.restaurantos.modules.restaurant.service.FileStorageService;
 import com.restaurantos.shared.exception.ResourceNotFoundException;
+import com.restaurantos.shared.websocket.WebSocketService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +34,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     private final MenuCategoryRepository categoryRepository;
     private final RestaurantRepository restaurantRepository;
     private final FileStorageService fileStorageService;
+    private final WebSocketService webSocketService;
 
     @Override
     @Transactional(readOnly = true)
@@ -128,7 +130,13 @@ public class MenuItemServiceImpl implements MenuItemService {
                 .filter(MenuItem::getIsActive)
                 .orElseThrow(() -> new ResourceNotFoundException("Menu Item not found with id: " + id));
         item.setIsAvailable(!item.getIsAvailable());
-        return mapToResponse(menuItemRepository.save(item));
+        MenuItem savedItem = menuItemRepository.save(item);
+        MenuItemResponse response = mapToResponse(savedItem);
+
+        // Broadcast to dashboard
+        webSocketService.broadcastToDashboard(item.getRestaurant().getId(), response);
+
+        return response;
     }
 
     @Override

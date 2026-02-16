@@ -31,6 +31,7 @@ import com.restaurantos.modules.restaurant.repository.RestaurantRepository;
 import com.restaurantos.modules.table.entity.RestaurantTable;
 import com.restaurantos.modules.table.repository.TableRepository;
 import com.restaurantos.shared.exception.ResourceNotFoundException;
+import com.restaurantos.shared.websocket.WebSocketService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
     private final TableRepository tableRepository;
     private final MenuItemRepository menuItemRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final WebSocketService webSocketService;
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyMMdd");
 
@@ -122,7 +124,14 @@ public class OrderServiceImpl implements OrderService {
         order.setSubtotal(subtotal);
         order.setTotalAmount(subtotal.add(order.getTaxAmount()).subtract(order.getDiscountAmount()));
 
-        return mapToResponse(orderRepository.save(order));
+        Order savedOrder = orderRepository.save(order);
+        OrderResponse response = mapToResponse(savedOrder);
+
+        // Broadcast to kitchen and dashboard
+        webSocketService.broadcastToKitchen(restaurantId, response);
+        webSocketService.broadcastToDashboard(restaurantId, response);
+
+        return response;
     }
 
     @Override
@@ -152,7 +161,15 @@ public class OrderServiceImpl implements OrderService {
             order.setCancelledAt(LocalDateTime.now());
         }
 
-        return mapToResponse(orderRepository.save(order));
+        Order savedOrder = orderRepository.save(order);
+        OrderResponse response = mapToResponse(savedOrder);
+
+        // Broadcast status update
+        webSocketService.broadcastToOrder(order.getId(), response);
+        webSocketService.broadcastToKitchen(order.getRestaurant().getId(), response);
+        webSocketService.broadcastToDashboard(order.getRestaurant().getId(), response);
+
+        return response;
     }
 
     @Override

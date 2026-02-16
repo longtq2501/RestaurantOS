@@ -33,6 +33,7 @@ import com.restaurantos.modules.restaurant.entity.Restaurant;
 import com.restaurantos.modules.restaurant.repository.RestaurantRepository;
 import com.restaurantos.modules.table.entity.RestaurantTable;
 import com.restaurantos.modules.table.repository.TableRepository;
+import com.restaurantos.shared.websocket.WebSocketService;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
@@ -51,6 +52,9 @@ class OrderServiceTest {
 
         @Mock
         private ApplicationEventPublisher eventPublisher;
+
+        @Mock
+        private WebSocketService webSocketService;
 
         @InjectMocks
         private OrderServiceImpl orderService;

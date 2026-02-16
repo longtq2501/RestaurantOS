@@ -31,6 +31,7 @@ import com.restaurantos.modules.menu.service.impl.MenuItemServiceImpl;
 import com.restaurantos.modules.restaurant.entity.Restaurant;
 import com.restaurantos.modules.restaurant.repository.RestaurantRepository;
 import com.restaurantos.modules.restaurant.service.FileStorageService;
+import com.restaurantos.shared.websocket.WebSocketService;
 
 @ExtendWith(MockitoExtension.class)
 class MenuItemServiceTest {
@@ -46,6 +47,9 @@ class MenuItemServiceTest {
 
     @Mock
     private FileStorageService fileStorageService;
+
+    @Mock
+    private WebSocketService webSocketService;
 
     @InjectMocks
     private MenuItemServiceImpl menuItemService;
