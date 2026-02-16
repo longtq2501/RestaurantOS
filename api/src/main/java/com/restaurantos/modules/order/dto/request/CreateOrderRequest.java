@@ -3,7 +3,7 @@ package com.restaurantos.modules.order.dto.request;
 import java.util.List;
 import java.util.UUID;
 
-import com.restaurantos.modules.order.entity.PaymentMethod;
+import com.restaurantos.modules.payment.entity.PaymentMethod;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

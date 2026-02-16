@@ -1,4 +1,4 @@
-package com.restaurantos.modules.order.entity;
+package com.restaurantos.modules.payment.entity;
 
 /**
  * Represents the payment method used for an order.

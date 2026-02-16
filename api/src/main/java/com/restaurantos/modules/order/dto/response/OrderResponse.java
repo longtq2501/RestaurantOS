@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import com.restaurantos.modules.order.entity.OrderItemStatus;
 import com.restaurantos.modules.order.entity.OrderStatus;
-import com.restaurantos.modules.order.entity.PaymentMethod;
 import com.restaurantos.modules.order.entity.PaymentStatus;
+import com.restaurantos.modules.payment.entity.PaymentMethod;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

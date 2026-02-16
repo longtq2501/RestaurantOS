@@ -29,9 +29,9 @@ import com.restaurantos.modules.order.dto.request.CreateOrderRequest;
 import com.restaurantos.modules.order.dto.request.UpdateOrderStatusRequest;
 import com.restaurantos.modules.order.dto.response.OrderResponse;
 import com.restaurantos.modules.order.entity.OrderStatus;
-import com.restaurantos.modules.order.entity.PaymentMethod;
 import com.restaurantos.modules.order.service.OrderItemService;
 import com.restaurantos.modules.order.service.OrderService;
+import com.restaurantos.modules.payment.entity.PaymentMethod;
 import com.restaurantos.shared.config.SecurityConfig;
 
 @WebMvcTest(OrderController.class)

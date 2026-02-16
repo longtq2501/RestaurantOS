@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.restaurantos.modules.payment.entity.PaymentMethod;
 import com.restaurantos.modules.restaurant.entity.Restaurant;
 import com.restaurantos.modules.table.entity.RestaurantTable;
 import com.restaurantos.shared.entity.BaseEntity;
