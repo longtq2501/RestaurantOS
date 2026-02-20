@@ -1,59 +1,50 @@
+# Spring Boot
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
+# IDEs
 .idea
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
 .vscode/
+.classpath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+bin/
+*.class
 
-### YAML ###
-*.yaml
+# Node / Turborepo
+node_modules/
+.turbo/
+.next/
+dist/
+out/
+build/
+.cache/
 
-### text ###
-*.txt
-
-### skills ###
-skills
-tasks.md
-HELP.md
-
-### Node / Turborepo ###
-node_modules
-.turbo
-.next
-dist
-out
-build
+# Environment Variables
 .env
-.env.local
-.DS_Store
+.env.*
+!.env.example
+*.local
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+skills/
+tasks.md
