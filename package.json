@@ -1,6 +1,11 @@
 {
   "name": "restaurantos",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "packages/config/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -14,8 +19,6 @@
     "prettier": "^3.0.0"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "pnpm": ">=8.0.0"
-  },
-  "packageManager": "pnpm@8.0.0"
+    "node": ">=18.0.0"
+  }
 }
