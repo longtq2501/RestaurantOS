@@ -1,0 +1,35 @@
+
+> admin@0.1.0 build
+> next build
+
+Gû¦ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+System.Management.Automation.RemoteException
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./apps/admin/proxy.ts
+Proxy is missing expected function export name
+This function is what Next.js runs for every request handled by this proxy (previously called middleware).
+System.Management.Automation.RemoteException
+Why this happens:
+- You are migrating from `middleware` to `proxy`, but haven't updated the exported function.
+- The file exists but doesn't export a function.
+- The export is not a function (e.g., an object or constant).
+- There's a syntax error preventing the export from being recognized.
+System.Management.Automation.RemoteException
+To fix it:
+- Ensure this file has either a default or "proxy" function export.
+System.Management.Automation.RemoteException
+Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+    at ignore-listed frames
+npm error Lifecycle script `build` failed with error:
+npm error code 1
+npm error path D:\restaurant-os\apps\admin
+npm error workspace admin@0.1.0
+npm error location D:\restaurant-os\apps\admin
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build
