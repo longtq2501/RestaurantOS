@@ -142,6 +142,7 @@ public class AuthServiceImpl implements AuthService {
                 .roleDisplayName(user.getRole().getDisplayName())
                 .isActive(user.isActive())
                 .avatarUrl(user.getAvatarUrl())
+                .restaurantId(user.getRestaurant() != null ? user.getRestaurant().getId() : null)
                 .build();
     }
 }

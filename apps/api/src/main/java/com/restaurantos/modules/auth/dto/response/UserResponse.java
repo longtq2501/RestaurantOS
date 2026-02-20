@@ -26,4 +26,5 @@ public class UserResponse {
     private String roleDisplayName;
     private boolean isActive;
     private String avatarUrl;
+    private UUID restaurantId;
 }

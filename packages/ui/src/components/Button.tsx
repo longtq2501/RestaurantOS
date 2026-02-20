@@ -9,7 +9,7 @@ function cn(...inputs: ClassValue[]) {
 
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
+    variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "success";
     size?: "sm" | "md" | "lg";
     asChild?: boolean;
 }
@@ -24,6 +24,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
             ghost: "hover:bg-accent hover:text-accent-foreground",
             danger: "bg-danger text-white hover:bg-danger/90",
+            success: "bg-success text-white hover:bg-success/90",
         };
 
         const sizes = {
