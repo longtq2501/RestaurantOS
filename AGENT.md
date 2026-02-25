@@ -1,3 +1,6 @@
+### Critical Instructions
+1. Follow performance & architecture rules in `./skills/`.
+2. Apply UX/UI best practices & Reasoning Rules from the installed `UI/UX Pro Max` skill.
 # Agent Instructions
 
 > [!IMPORTANT]

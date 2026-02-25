@@ -1,6 +1,7 @@
 {
   "name": "restaurantos",
   "private": true,
+  "packageManager": "npm@10.9.1",
   "workspaces": [
     "apps/*",
     "packages/*",
@@ -15,8 +16,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "turbo": "^2.3.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "turbo": "^2.8.10",
+    "turbo-windows-64": "^2.8.10"
   },
   "engines": {
     "node": ">=18.0.0"
