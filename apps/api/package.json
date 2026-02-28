@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": ".\\mvnw clean package -DskipTests",
-    "dev": ".\\mvnw spring-boot:run",
-    "test": ".\\mvnw test",
-    "clean": ".\\mvnw clean"
+    "build": "set \"JAVA_HOME=C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.10.7-hotspot\" && .\\mvnw clean package -DskipTests",
+    "dev": "set \"JAVA_HOME=C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.10.7-hotspot\" && .\\mvnw spring-boot:run",
+    "test": "set \"JAVA_HOME=C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.10.7-hotspot\" && .\\mvnw test",
+    "clean": "set \"JAVA_HOME=C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.10.7-hotspot\" && .\\mvnw clean"
   }
 }

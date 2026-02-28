@@ -40,6 +40,7 @@ public class DataSeeder {
             // Create demo restaurant
             Restaurant restaurant = Restaurant.builder()
                     .name("Demo Restaurant")
+                    .slug("demo-restaurant")
                     .build();
             restaurant = restaurantRepository.save(restaurant);
 
